@@ -15,6 +15,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Covidart',
       theme: AppTheme.theme,
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: AppRouter.onGenerateRoute,
