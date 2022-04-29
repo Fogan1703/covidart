@@ -1,6 +1,7 @@
 import 'package:covidart/router.dart';
 import 'package:covidart/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const App());
@@ -14,6 +15,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Covidart',
       theme: AppTheme.theme,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
