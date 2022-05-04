@@ -1,10 +1,16 @@
+import 'dart:convert';
+
+import 'package:covidart/bloc/statistic.dart';
 import 'package:covidart/router.dart';
 import 'package:covidart/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final prefs = await SharedPreferences.getInstance();
 
   final seen = prefs.getBool('seen') ?? false;
@@ -13,8 +19,9 @@ void main() async {
   }
 
   runApp(
-    App(
-      seen: seen,
+    BlocProvider<StatisticCubit>(
+      create: (context) => StatisticCubit(prefs: prefs),
+      child: App(seen: seen),
     ),
   );
 }

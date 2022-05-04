@@ -1,4 +1,6 @@
+import 'package:covidart/bloc/statistic.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   AppRouter._();
@@ -8,7 +10,10 @@ class AppRouter {
       default:
         return AppPageRouteBuilder(
           page: Center(
-            child: Text('There is no route with name ${settings.name}'),
+            child: Text(
+              'There is no route with name ${settings.name}',
+              textAlign: TextAlign.center,
+            ),
           ),
         );
     }
