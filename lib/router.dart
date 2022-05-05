@@ -1,12 +1,15 @@
-import 'package:covidart/bloc/statistic.dart';
+import 'package:covidart/pages/home/home_page.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   AppRouter._();
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case HomePage.routeName:
+        return AppPageRouteBuilder(
+          page: const HomePage(),
+        );
       default:
         return AppPageRouteBuilder(
           page: Center(

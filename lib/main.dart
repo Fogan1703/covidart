@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:covidart/bloc/statistic.dart';
 import 'package:covidart/router.dart';
 import 'package:covidart/theme.dart';
@@ -42,6 +40,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      initialRoute: 'home',
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
