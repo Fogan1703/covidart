@@ -1,1 +1,12 @@
-{}
+{
+  "statistics": "Statistics",
+  "country": "Country",
+  "global": "Global",
+  "total": "Total",
+  "today": "Today",
+  "affected": "Affected",
+  "death": "Death",
+  "recovered": "Recovered",
+  "active": "Active"
+
+}

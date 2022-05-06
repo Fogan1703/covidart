@@ -1,9 +1,10 @@
 import 'package:animations/animations.dart';
-import 'package:covidart/pages/home/views/home.dart';
-import 'package:covidart/pages/home/views/info.dart';
-import 'package:covidart/pages/home/views/statistic.dart';
-import 'package:covidart/pages/home/views/symptoms.dart';
 import 'package:flutter/material.dart';
+
+import 'views/home.dart';
+import 'views/info.dart';
+import 'views/statistic.dart';
+import 'views/symptoms.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'home';
@@ -18,8 +19,8 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   static const _views = [
-    HomeView(),
     StatisticView(),
+    HomeView(),
     SymptomsView(),
     InfoView(),
   ];

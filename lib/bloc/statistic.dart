@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:country/country.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,9 @@ class StatisticCubit extends Cubit<StatisticState> {
     required StatisticState state,
     required SharedPreferences prefs,
   })  : _prefs = prefs,
-        super(state);
+        super(state) {
+    refresh();
+  }
 
   factory StatisticCubit({required SharedPreferences prefs}) {
     final stringedData = prefs.getString('data');
@@ -24,55 +27,82 @@ class StatisticCubit extends Cubit<StatisticState> {
       return StatisticCubit._(
         state: StatisticLoading(),
         prefs: prefs,
-      )..refresh();
+      );
     }
 
-    final Map<String, dynamic> data = jsonDecode(stringedData);
+    final data = jsonDecode(stringedData);
 
     return StatisticCubit._(
       state: StatisticSuccess(
         lastUpdate: DateTime.fromMillisecondsSinceEpoch(data['lastUpdate']),
         worldStatistic: Statistic.fromMap(
-          data['worldStatistic'],
-          countryCode: null,
+          total: data['world']['total'],
+          today: data['world']['today'],
         ),
-        countryStatistic: data['countryStatistic'] != null
-            ? Statistic.fromMap(
-                data['countryStatistic'],
-                countryCode: data['countryStatistic']['country'],
+        countryStatistic: data['country'] != null
+            ? CountryStatistic.fromMap(
+                total: data['country']['total'],
+                today: data['country']['today'],
+                country: Countries.values.singleWhere(
+                  (country) =>
+                      country.countryCode == data['country']['country'],
+                ),
               )
             : null,
         refreshing: RefreshingStatus.loading,
       ),
       prefs: prefs,
-    )..refresh();
+    );
   }
 
   Future<void> refresh() async {
     final state = this.state;
 
     if (state is StatisticSuccess) {
-      emit(state.copyWith(
-        refreshing: RefreshingStatus.loading,
-      ));
+      emit(state.copyWithRefreshing(RefreshingStatus.loading));
     } else {
       emit(StatisticLoading());
     }
 
     if (await _getIsConnected()) {
-      final response = await Dio().get('https://api.covid19api.com/summary');
-      final data = response.data as Map<String, dynamic>;
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+
+      final worldTotalResponse = await Dio().get(
+        'https://api.covid19api.com/world/total',
+      );
+      final worldTodayResponse = await Dio().get(
+        'https://api.covid19api.com/world'
+        '?from=${today.toIso8601String()}&'
+        'to=${now.toIso8601String()}',
+      );
+
+      late CountryStatistic? countryStatistic;
+
+      if (state is StatisticSuccess && state.countryStatistic != null) {
+        final countryCode = state.countryStatistic!.country.countryCode;
+        final countryTotalResponse = await Dio().get(
+          'https://api.covid19api.com/total/country/$countryCode',
+        );
+        final countryTodayResponse = await Dio().get(
+          'https://api.covid19api.com/total/country/$countryCode'
+          '?from=${today.toIso8601String()}&'
+          'to=${now.toIso8601String()}',
+        );
+        countryStatistic = CountryStatistic.fromMap(
+          total: countryTotalResponse.data,
+          today: countryTodayResponse.data,
+          country: state.countryStatistic!.country,
+        );
+      }
 
       final newState = StatisticSuccess(
         lastUpdate: DateTime.now(),
-        worldStatistic: Statistic.fromMap(data['Global'], countryCode: null),
-        countryStatistic:
-            state is StatisticSuccess && state.countryStatistic != null
-                ? Statistic.fromMap(
-                    data['Global'],
-                    countryCode: state.countryStatistic!.country!.countryCode,
-                  )
-                : null,
+        worldStatistic: Statistic.fromMap(
+          total: worldTotalResponse.data,
+          today: worldTodayResponse.data,
+        ),
+        countryStatistic: countryStatistic,
         refreshing: RefreshingStatus.refreshed,
       );
 
@@ -81,7 +111,7 @@ class StatisticCubit extends Cubit<StatisticState> {
       emit(newState);
     } else {
       if (state is StatisticSuccess) {
-        emit(state.copyWith(refreshing: RefreshingStatus.noConnection));
+        emit(state.copyWithRefreshing(RefreshingStatus.noConnection));
       } else {
         emit(StatisticNoConnection());
       }
@@ -107,7 +137,7 @@ class StatisticNoConnection extends StatisticState {}
 class StatisticSuccess extends StatisticState {
   final DateTime lastUpdate;
   final Statistic worldStatistic;
-  final Statistic? countryStatistic;
+  final CountryStatistic? countryStatistic;
   final RefreshingStatus refreshing;
 
   StatisticSuccess({
@@ -117,25 +147,29 @@ class StatisticSuccess extends StatisticState {
     required this.refreshing,
   });
 
-  StatisticSuccess copyWith({
-    DateTime? lastUpdate,
-    Statistic? worldStatistic,
-    Statistic? countryStatistic,
-    RefreshingStatus? refreshing,
-  }) {
+  StatisticSuccess copyWithRefreshing(RefreshingStatus refreshing) {
     return StatisticSuccess(
-      lastUpdate: lastUpdate ?? this.lastUpdate,
-      worldStatistic: worldStatistic ?? this.worldStatistic,
-      countryStatistic: countryStatistic ?? this.countryStatistic,
-      refreshing: refreshing ?? this.refreshing,
+      lastUpdate: lastUpdate,
+      worldStatistic: worldStatistic,
+      countryStatistic: countryStatistic,
+      refreshing: refreshing,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'lastUpdate': lastUpdate.millisecondsSinceEpoch,
-      'worldStatistic': worldStatistic.toMap(),
-      'countryStatistic': countryStatistic?.toMap(),
+      'world': {
+        'total': worldStatistic.totalToMap(),
+        'today': worldStatistic.todayToMap(),
+      },
+      'country': countryStatistic != null
+          ? {
+              'country': countryStatistic!.country.countryCode,
+              'total': countryStatistic!.totalToMap(),
+              'today': countryStatistic!.todayToMap(),
+            }
+          : null,
     };
   }
 
