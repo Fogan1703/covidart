@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:country/country.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +47,7 @@ class StatisticCubit extends Cubit<StatisticState> {
     );
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh({Country? newCountry}) async {
     final state = this.state;
 
     if (state is StatisticSuccess) {
@@ -58,16 +59,30 @@ class StatisticCubit extends Cubit<StatisticState> {
     if (await _getIsConnected()) {
       final worldResponse = await Dio().get(_apiUrl + 'all');
 
-      CountryStatistic? countryStatistic;
+      Response? countryResponse;
+      Country? country;
 
-      if (state is StatisticSuccess && state.countryStatistic != null) {
-        // TODO: Country statistic
+      if (newCountry != null) {
+        country = newCountry;
+      } else if (state is StatisticSuccess && state.countryStatistic != null) {
+        country = state.countryStatistic!.country;
+      }
+
+      if (country != null) {
+        countryResponse = await Dio().get(
+          _apiUrl + 'countries/' + country.countryCode,
+        );
       }
 
       final newState = StatisticSuccess(
         lastUpdate: DateTime.now(),
         worldStatistic: Statistic.fromMap(worldResponse.data),
-        countryStatistic: countryStatistic,
+        countryStatistic: countryResponse != null
+            ? CountryStatistic.fromMap(
+                countryResponse.data,
+                country: country,
+              )
+            : null,
         refreshing: RefreshingStatus.refreshed,
       );
 

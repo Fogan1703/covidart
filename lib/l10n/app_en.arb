@@ -8,5 +8,7 @@
   "deaths": "Deaths",
   "recovered": "Recovered",
   "active": "Active",
-  "critical": "Critical"
+  "critical": "Critical",
+  "search": "Search",
+  "selectCountry": "Select country"
 }

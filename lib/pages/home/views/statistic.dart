@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../bloc/statistic.dart';
 import '../../../models/statistic.dart';
 import '../../../theme.dart';
+import '../../../widgets/country_selector.dart';
 import '../../../widgets/country_tab_bar.dart';
 import '../../../widgets/statistic_grid.dart';
 
@@ -99,7 +100,8 @@ class _StatisticViewState extends State<StatisticView>
                         localizations.statistics,
                         style: theme.textTheme.headline5,
                       ),
-                      // TODO: Country selector
+                      const Spacer(),
+                      const CountrySelector(),
                     ],
                   ),
                   const SizedBox(height: 32),
