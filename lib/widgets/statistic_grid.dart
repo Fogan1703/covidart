@@ -6,8 +6,6 @@ import '../models/statistic.dart';
 import '../theme.dart';
 
 class StatisticGrid extends StatelessWidget {
-  static final _valueFormat = NumberFormat.decimalPattern();
-
   final Statistic statistic;
   final bool isTotal;
 
@@ -24,44 +22,47 @@ class StatisticGrid extends StatelessWidget {
 
     return Column(
       children: [
-        Expanded(
-          child: GridView(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 3 / 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
+        Row(
+          children: [
+            _buildTile(
+              title: localizations.affected,
+              value: isTotal ? statistic.cases : statistic.todayCases,
+              color: AppTheme.yellow,
+              textTheme: textTheme,
             ),
-            children: [
-              _buildTile(
-                title: localizations.affected,
-                value:
-                    isTotal ? statistic.totalAffected : statistic.todayAffected,
-                color: AppTheme.yellow,
-                textTheme: textTheme,
-              ),
-              _buildTile(
-                title: localizations.death,
-                value: isTotal ? statistic.totalDeath : statistic.todayDeath,
-                color: AppTheme.red,
-                textTheme: textTheme,
-              ),
-              _buildTile(
-                title: localizations.recovered,
-                value: isTotal
-                    ? statistic.totalRecovered
-                    : statistic.todayRecovered,
-                color: AppTheme.green,
-                textTheme: textTheme,
-              ),
-              _buildTile(
-                title: localizations.active,
-                value: statistic.active,
-                color: AppTheme.lightBlue,
-                textTheme: textTheme,
-              ),
-            ],
-          ),
+            const SizedBox(width: 16),
+            _buildTile(
+              title: localizations.deaths,
+              value: isTotal ? statistic.deaths : statistic.todayDeaths,
+              color: AppTheme.red,
+              textTheme: textTheme,
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            _buildTile(
+              title: localizations.recovered,
+              value: isTotal ? statistic.recovered : statistic.todayRecovered,
+              color: AppTheme.green,
+              textTheme: textTheme,
+            ),
+            const SizedBox(width: 16),
+            _buildTile(
+              title: localizations.active,
+              value: statistic.active,
+              color: AppTheme.lightBlue,
+              textTheme: textTheme,
+            ),
+            const SizedBox(width: 16),
+            _buildTile(
+              title: localizations.critical,
+              value: statistic.critical,
+              color: AppTheme.purpleLight,
+              textTheme: textTheme,
+            ),
+          ],
         ),
       ],
     );
@@ -73,26 +74,29 @@ class StatisticGrid extends StatelessWidget {
     required Color color,
     required TextTheme textTheme,
   }) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: textTheme.subtitle2,
-            ),
-            Text(
-              _valueFormat.format(value),
-              style: textTheme.subtitle1,
-            ),
-          ],
+    return Expanded(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: textTheme.subtitle2,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                NumberFormat.compact().format(value),
+                style: textTheme.subtitle1,
+              ),
+            ],
+          ),
         ),
       ),
     );

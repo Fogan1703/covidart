@@ -5,8 +5,8 @@
   "total": "Total",
   "today": "Today",
   "affected": "Affected",
-  "death": "Death",
+  "deaths": "Deaths",
   "recovered": "Recovered",
-  "active": "Active"
-
+  "active": "Active",
+  "critical": "Critical"
 }

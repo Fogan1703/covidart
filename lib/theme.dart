@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
+  static const Color purpleLight = Color(0xFF9059ff);
   static const Color purple = Color(0xFF473F97);
   static const Color purpleDark = Color(0xFF2A255A);
   static const Color red = Color(0xFFFF4C58);
@@ -22,16 +23,21 @@ class AppTheme {
     subtitle1: TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.w700,
-      fontSize: 22,
+      fontSize: 18,
     ),
     subtitle2: TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.w700,
-      fontSize: 16,
+      fontSize: 14,
+    ),
+    bodyText1: TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+      fontSize: 14,
     ),
     bodyText2: TextStyle(
       color: Colors.white,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.normal,
       fontSize: 14,
     ),
   );

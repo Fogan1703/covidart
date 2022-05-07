@@ -1,4 +1,7 @@
 import 'package:covidart/bloc/statistic.dart';
+import 'package:covidart/pages/home/home_page.dart';
+import 'package:covidart/pages/loading.dart';
+import 'package:covidart/pages/no_connection.dart';
 import 'package:covidart/router.dart';
 import 'package:covidart/theme.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +37,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final statisticState = context.read<StatisticCubit>().state;
+
     return MaterialApp(
       title: 'Covidart',
       theme: AppTheme.theme,
@@ -41,7 +46,11 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: 'home',
+      initialRoute: statisticState is StatisticLoading
+          ? LoadingPage.routeName
+          : statisticState is StatisticNoConnection
+              ? NoConnectionPage.routeName
+              : HomePage.routeName,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }

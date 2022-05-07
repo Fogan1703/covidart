@@ -1,4 +1,6 @@
 import 'package:covidart/pages/home/home_page.dart';
+import 'package:covidart/pages/loading.dart';
+import 'package:covidart/pages/no_connection.dart';
 import 'package:flutter/widgets.dart';
 
 class AppRouter {
@@ -9,6 +11,14 @@ class AppRouter {
       case HomePage.routeName:
         return AppPageRouteBuilder(
           page: const HomePage(),
+        );
+      case NoConnectionPage.routeName:
+        return AppPageRouteBuilder(
+          page: const NoConnectionPage(),
+        );
+      case LoadingPage.routeName:
+        return AppPageRouteBuilder(
+          page: const LoadingPage(),
         );
       default:
         return AppPageRouteBuilder(

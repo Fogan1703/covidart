@@ -145,7 +145,10 @@ class _StatisticViewState extends State<StatisticView>
                                   vertical: 16,
                                   horizontal: 8,
                                 ),
-                                child: Text(totalTodayTexts[index]),
+                                child: Text(
+                                  totalTodayTexts[index],
+                                  style: theme.textTheme.bodyText1,
+                                ),
                               ),
                             ),
                           );
