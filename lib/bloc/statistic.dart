@@ -70,7 +70,7 @@ class StatisticCubit extends Cubit<StatisticState> {
 
       if (country != null) {
         countryResponse = await Dio().get(
-          _apiUrl + 'countries/' + country.countryCode,
+          _apiUrl + 'countries/' + country.isoShortName,
         );
       }
 

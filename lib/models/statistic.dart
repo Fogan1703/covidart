@@ -87,7 +87,7 @@ class CountryStatistic extends Statistic {
     Country? country,
   })  : country = country ??
             Countries.values.singleWhere(
-              (country) => country.countryCode == data['country'],
+              (country) => country.isoShortName == data['country'],
             ),
         super.fromMap(data);
 
@@ -95,13 +95,13 @@ class CountryStatistic extends Statistic {
   Map<String, dynamic> toMap() {
     return {
       ...super.toMap(),
-      'country': country.countryCode,
+      'country': country.isoShortName,
     };
   }
 
   @override
   List<Object?> get props => [
         super.props,
-        country.countryCode,
+        country.isoShortName,
       ];
 }
