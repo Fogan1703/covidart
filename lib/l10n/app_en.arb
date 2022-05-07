@@ -1,7 +1,7 @@
 {
   "statistics": "Statistics",
   "country": "Country",
-  "global": "Global",
+  "world": "World",
   "total": "Total",
   "today": "Today",
   "affected": "Affected",
@@ -10,5 +10,14 @@
   "active": "Active",
   "critical": "Critical",
   "search": "Search",
-  "selectCountry": "Select country"
+  "selectCountry": "Select country",
+  "lastUpdate": "Last update: {date}",
+  "@lastUpdate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "checkYourInternetConnection": "Oops! Please, check your network connection"
 }

@@ -8,9 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../theme.dart';
 
 class CountrySelector extends StatefulWidget {
-  const CountrySelector({
-    Key? key,
-  }) : super(key: key);
+  const CountrySelector({Key? key}) : super(key: key);
 
   @override
   State<CountrySelector> createState() => _CountrySelectorState();
@@ -62,9 +60,12 @@ class _CountrySelectorState extends State<CountrySelector> {
               BlocBuilder<StatisticCubit, StatisticState>(
                 builder: (context, state) {
                   state = state as StatisticSuccess;
+                  final country = state.countryStatistic?.country;
+
                   return Text(
-                    state.countryStatistic?.country.isoShortName ??
-                        localizations.selectCountry,
+                    country != null
+                        ? ('${country.flagEmoji} ${country.isoShortName}')
+                        : localizations.selectCountry,
                     style: theme.textTheme.bodyText1!.copyWith(
                       color: AppTheme.purpleDark,
                     ),
@@ -149,6 +150,7 @@ class _CountrySelectorBottomSheetState
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
+
                     context.read<StatisticCubit>().refresh(newCountry: country);
                   },
                   child: Padding(

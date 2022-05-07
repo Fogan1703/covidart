@@ -12,6 +12,7 @@ dependencies:
   animations: ^2.0.2
   connectivity_plus: ^2.3.0
   country: ^2.0.0
+  declarative_refresh_indicator: ^0.1.0
   dio: ^4.0.6
   equatable: ^2.0.3
   flutter:
