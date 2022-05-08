@@ -52,7 +52,7 @@ class StatisticCubit extends Cubit<StatisticState> {
 
     if (state is StatisticSuccess) {
       emit(state.copyWithRefreshing(RefreshingStatus.loading));
-    } else {
+    } else if (state is StatisticNoConnection) {
       emit(StatisticLoading());
     }
 
