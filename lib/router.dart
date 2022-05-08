@@ -1,35 +1,54 @@
-import 'package:covidart/pages/home/home_page.dart';
-import 'package:covidart/pages/loading.dart';
-import 'package:covidart/pages/no_connection.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/statistic.dart';
+import 'pages/home/home_page.dart';
+import 'pages/loading.dart';
+import 'pages/no_connection.dart';
 
 class AppRouter {
   AppRouter._();
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+    final Widget page;
+
     switch (settings.name) {
       case HomePage.routeName:
-        return AppPageRouteBuilder(
-          page: const HomePage(),
-        );
+        page = const HomePage();
+        break;
       case NoConnectionPage.routeName:
-        return AppPageRouteBuilder(
-          page: const NoConnectionPage(),
-        );
+        page = const NoConnectionPage();
+        break;
       case LoadingPage.routeName:
-        return AppPageRouteBuilder(
-          page: const LoadingPage(),
-        );
+        page = const LoadingPage();
+        break;
       default:
-        return AppPageRouteBuilder(
-          page: Center(
-            child: Text(
-              'There is no route with name ${settings.name}',
-              textAlign: TextAlign.center,
-            ),
+        page = Center(
+          child: Text(
+            'There is no route with name ${settings.name}',
+            textAlign: TextAlign.center,
           ),
         );
     }
+
+    return AppPageRouteBuilder(
+      page: BlocListener<StatisticCubit, StatisticState>(
+        listener: (context, state) {
+          final navigator = Navigator.of(context);
+
+          if (state is StatisticSuccess) {
+            navigator.pushNamed(HomePage.routeName);
+          }
+          if (state is StatisticLoading) {
+            navigator.pushNamed(LoadingPage.routeName);
+          }
+          if (state is StatisticNoConnection) {
+            navigator.pushNamed(NoConnectionPage.routeName);
+          }
+        },
+        child: page,
+      ),
+    );
   }
 }
 
