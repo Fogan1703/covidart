@@ -33,6 +33,8 @@ class AppRouter {
 
     return AppPageRouteBuilder(
       page: BlocListener<StatisticCubit, StatisticState>(
+        listenWhen: (previous, current) =>
+            previous.runtimeType != current.runtimeType,
         listener: (context, state) {
           final navigator = Navigator.of(context);
 
