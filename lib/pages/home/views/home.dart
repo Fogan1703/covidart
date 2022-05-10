@@ -12,110 +12,113 @@ class HomeView extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final localizations = AppLocalizations.of(context)!;
 
-    return Column(
-      children: [
-        DecoratedBox(
-          decoration: const BoxDecoration(
-            color: AppTheme.purple,
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(40),
+    return ColoredBox(
+      color: Colors.white,
+      child: Column(
+        children: [
+          DecoratedBox(
+            decoration: const BoxDecoration(
+              color: AppTheme.purple,
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(40),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Covid-19',
-                  style: theme.textTheme.headline5,
-                ),
-                const SizedBox(height: 32),
-                Text(
-                  localizations.areYouFeelingSick,
-                  style: theme.textTheme.subtitle1,
-                ),
-                const SizedBox(height: 8),
-                SizedBox(
-                  width: mediaQuery.size.width * 0.75,
-                  child: Text(
-                    localizations.ifYouFeelSick,
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Covid-19',
+                    style: theme.textTheme.headline5,
                   ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.phone),
-                        label: Text(localizations.callNow),
-                        style: ElevatedButton.styleFrom(
-                          primary: AppTheme.red,
+                  const SizedBox(height: 32),
+                  Text(
+                    localizations.areYouFeelingSick,
+                    style: theme.textTheme.subtitle1,
+                  ),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: mediaQuery.size.width * 0.75,
+                    child: Text(
+                      localizations.ifYouFeelSick,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(Icons.phone),
+                          label: Text(localizations.callNow),
+                          style: ElevatedButton.styleFrom(
+                            primary: AppTheme.red,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 24),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.sms),
-                        label: Text(localizations.sendSMS),
-                        style: ElevatedButton.styleFrom(
-                          primary: AppTheme.blue,
+                      const SizedBox(width: 24),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(Icons.sms),
+                          label: Text(localizations.sendSMS),
+                          style: ElevatedButton.styleFrom(
+                            primary: AppTheme.blue,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Spacer(flex: 1),
-                Text(
-                  localizations.prevention,
-                  style: theme.textTheme.headline6!.copyWith(
-                    color: AppTheme.purpleDark,
+                    ],
                   ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildPreventionItem(
-                      localizations.wearMask,
-                      const AssetImage('assets/images/use_mask.png'),
-                      theme,
-                      mediaQuery,
-                    ),
-                    _buildPreventionItem(
-                      localizations.washHandsOften,
-                      const AssetImage('assets/images/wash_hands.png'),
-                      theme,
-                      mediaQuery,
-                    ),
-                    _buildPreventionItem(
-                      localizations.avoidCloseContact,
-                      const AssetImage('assets/images/close_contact.png'),
-                      theme,
-                      mediaQuery,
-                    ),
-                  ],
-                ),
-                const Spacer(flex: 2),
-                _buildDoTest(theme, mediaQuery, localizations),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Spacer(flex: 1),
+                  Text(
+                    localizations.prevention,
+                    style: theme.textTheme.headline6!.copyWith(
+                      color: AppTheme.purpleDark,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildPreventionItem(
+                        localizations.wearMask,
+                        const AssetImage('assets/images/use_mask.png'),
+                        theme,
+                        mediaQuery,
+                      ),
+                      _buildPreventionItem(
+                        localizations.washHandsOften,
+                        const AssetImage('assets/images/wash_hands.png'),
+                        theme,
+                        mediaQuery,
+                      ),
+                      _buildPreventionItem(
+                        localizations.avoidCloseContact,
+                        const AssetImage('assets/images/close_contact.png'),
+                        theme,
+                        mediaQuery,
+                      ),
+                    ],
+                  ),
+                  const Spacer(flex: 2),
+                  _buildDoTest(theme, mediaQuery, localizations),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

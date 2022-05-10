@@ -1,14 +1,12 @@
 import 'package:animations/animations.dart';
-import 'package:covidart/bloc/statistic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../bloc/statistic.dart';
 import '../../theme.dart';
 import 'views/home.dart';
-import 'views/info.dart';
 import 'views/statistic.dart';
-import 'views/symptoms.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'home';
@@ -28,8 +26,6 @@ class _HomePageState extends State<HomePage>
   static const _views = [
     HomeView(),
     StatisticView(),
-    SymptomsView(),
-    InfoView(),
   ];
 
   @override
@@ -107,6 +103,7 @@ class _HomePageState extends State<HomePage>
                     return FadeThroughTransition(
                       animation: primaryAnimation,
                       secondaryAnimation: secondaryAnimation,
+                      fillColor: AppTheme.purple,
                       child: child,
                     );
                   },
@@ -130,14 +127,6 @@ class _HomePageState extends State<HomePage>
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.insert_chart_outlined),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.library_add_check_outlined),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.info),
               label: '',
             ),
           ],

@@ -1,13 +1,14 @@
-import 'package:covidart/bloc/statistic.dart';
-import 'package:covidart/pages/home/home_page.dart';
-import 'package:covidart/pages/loading.dart';
-import 'package:covidart/pages/no_connection.dart';
-import 'package:covidart/router.dart';
-import 'package:covidart/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'bloc/statistic.dart';
+import 'pages/home/home_page.dart';
+import 'pages/loading.dart';
+import 'pages/no_connection.dart';
+import 'router.dart';
+import 'theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

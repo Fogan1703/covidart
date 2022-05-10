@@ -1,10 +1,10 @@
 import 'package:country/country.dart';
-import 'package:covidart/bloc/statistic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../bloc/statistic.dart';
 import '../theme.dart';
 
 class CountrySelector extends StatefulWidget {
