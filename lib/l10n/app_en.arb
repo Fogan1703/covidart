@@ -19,5 +19,15 @@
       }
     }
   },
-  "checkYourInternetConnection": "Oops! Please, check your network connection"
+  "checkYourInternetConnection": "Oops! Please, check your network connection",
+  "areYouFeelingSick": "Are you feeling sick?",
+  "ifYouFeelSick": "If you feel sick with any of Covid-19 symptoms please call or message us immediately for help.",
+  "callNow": "CALL NOW",
+  "sendSMS": "SEND SMS",
+  "prevention": "Prevention",
+  "wearMask": "Wear a mask",
+  "washHandsOften": "Wash your hands often",
+  "avoidCloseContact": "Avoid close contact",
+  "doYourOwnTest": "Do your own test!",
+  "followTheInstructions": "Follow the instructions to do your own test"
 }

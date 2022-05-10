@@ -52,7 +52,7 @@ class StatisticGrid extends StatelessWidget {
             _buildTile(
               title: localizations.active,
               value: statistic.active,
-              color: AppTheme.lightBlue,
+              color: AppTheme.blueLight,
               textTheme: textTheme,
             ),
             const SizedBox(width: 16),

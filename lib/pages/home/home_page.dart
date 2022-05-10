@@ -26,8 +26,8 @@ class _HomePageState extends State<HomePage>
   int _currentIndex = 0;
 
   static const _views = [
-    StatisticView(),
     HomeView(),
+    StatisticView(),
     SymptomsView(),
     InfoView(),
   ];
@@ -99,8 +99,11 @@ class _HomePageState extends State<HomePage>
               ),
               Expanded(
                 child: PageTransitionSwitcher(
-                  transitionBuilder:
-                      (child, primaryAnimation, secondaryAnimation) {
+                  transitionBuilder: (
+                    child,
+                    primaryAnimation,
+                    secondaryAnimation,
+                  ) {
                     return FadeThroughTransition(
                       animation: primaryAnimation,
                       secondaryAnimation: secondaryAnimation,
