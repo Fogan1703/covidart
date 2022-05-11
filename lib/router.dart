@@ -57,8 +57,25 @@ class AppRouter {
 class AppPageRouteBuilder extends PageRouteBuilder {
   AppPageRouteBuilder({required Widget page})
       : super(
-          pageBuilder: (context, _, __) {
+          pageBuilder: (context, animation, secondaryAnimation) {
             return page;
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final curvedAnimation = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInBack,
+            );
+
+            return ScaleTransition(
+              scale: Tween(
+                begin: 0.75,
+                end: 1.0,
+              ).animate(curvedAnimation),
+              child: FadeTransition(
+                opacity: curvedAnimation,
+                child: child,
+              ),
+            );
           },
         );
 }
