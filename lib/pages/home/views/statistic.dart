@@ -66,12 +66,6 @@ class _StatisticViewState extends State<StatisticView>
     );
   }
 
-  Widget _buildNoCountryView() {
-    return const Center(
-      child: Text('No country'),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -218,10 +212,29 @@ class _StatisticViewState extends State<StatisticView>
                                   children: [
                                     state.countryStatistic != null
                                         ? _buildStatistic(
-                                            state.countryStatistic!, _isTotal)
-                                        : _buildNoCountryView(),
+                                            state.countryStatistic!,
+                                            _isTotal,
+                                          )
+                                        : Center(
+                                            child: SizedBox(
+                                              width: (MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      48) *
+                                                  0.6,
+                                              child: Text(
+                                                localizations
+                                                    .pleaseSelectCountry,
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
+                                            ),
+                                          ),
                                     _buildStatistic(
-                                        state.worldStatistic, _isTotal),
+                                      state.worldStatistic,
+                                      _isTotal,
+                                    ),
                                   ],
                                 ),
                               ),

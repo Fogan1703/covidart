@@ -21,7 +21,7 @@
   },
   "checkYourInternetConnection": "Oops! Please, check your network connection",
   "areYouFeelingSick": "Are you feeling sick?",
-  "ifYouFeelSick": "If you feel sick with any of Covid-19 symptoms please call or message us immediately for help.",
+  "ifYouFeelSick": "If you feel sick with any of Covid-19 symptoms, please, call or message us immediately for help.",
   "callNow": "CALL NOW",
   "sendSMS": "SEND SMS",
   "prevention": "Prevention",
@@ -31,10 +31,11 @@
   "doYourOwnTest": "Do your own test!",
   "followTheInstructions": "Follow the instructions to do your own test",
   "oops": "Oops!",
-  "noInternetConnection": "No internet connection. Please check your settings",
+  "noInternetConnection": "No internet connection. Please, check your settings",
   "reload": "RELOAD",
   "next": "NEXT",
   "go": "GO",
   "washingHandsSanitizing": "Washing hands & Sanitizing",
-  "physicalDistancing": "Physical distancing"
+  "physicalDistancing": "Physical distancing",
+  "pleaseSelectCountry": "Please, select country to see it's statistic"
 }

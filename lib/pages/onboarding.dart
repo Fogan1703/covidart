@@ -140,9 +140,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     } else {
                       _pageController.nextPage(
                         duration: const Duration(
-                          milliseconds: 300,
+                          milliseconds: 400,
                         ),
-                        curve: Curves.easeIn,
+                        curve: Curves.easeOutCubic,
                       );
                     }
                   },

@@ -18,7 +18,14 @@ class StatisticCubit extends Cubit<StatisticState> {
     required StatisticState state,
     required SharedPreferences prefs,
   })  : _prefs = prefs,
-        super(state);
+        super(state) {
+    refresh();
+  }
+
+  StatisticCubit.withInitial({
+    required SharedPreferences prefs,
+  })  : _prefs = prefs,
+        super(StatisticInitial());
 
   factory StatisticCubit({required SharedPreferences prefs}) {
     final stringedData = prefs.getString('data');
@@ -50,7 +57,7 @@ class StatisticCubit extends Cubit<StatisticState> {
 
     if (state is StatisticSuccess) {
       emit(state.copyWithRefreshing(RefreshingStatus.loading));
-    } else if (state is StatisticNoConnection) {
+    } else {
       emit(StatisticLoading());
     }
 
@@ -107,6 +114,8 @@ abstract class StatisticState extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class StatisticInitial extends StatisticState {}
 
 class StatisticLoading extends StatisticState {}
 

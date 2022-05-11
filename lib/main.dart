@@ -18,8 +18,12 @@ void main() async {
 
   final seen = prefs.getBool('seen') ?? false;
 
-  final statisticCubit = StatisticCubit(prefs: prefs);
-  if(seen) statisticCubit.refresh();
+  final StatisticCubit statisticCubit;
+  if (seen) {
+    statisticCubit = StatisticCubit(prefs: prefs);
+  } else {
+    statisticCubit = StatisticCubit.withInitial(prefs: prefs);
+  }
 
   runApp(
     BlocProvider<StatisticCubit>.value(
@@ -42,7 +46,9 @@ class App extends StatelessWidget {
     final String initialRoute;
 
     if (seen) {
-      final statisticState = context.read<StatisticCubit>().state;
+      final statisticState = context
+          .read<StatisticCubit>()
+          .state;
 
       if (statisticState is StatisticLoading) {
         initialRoute = LoadingPage.routeName;
