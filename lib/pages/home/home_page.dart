@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage>
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Column(
             children: [

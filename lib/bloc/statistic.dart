@@ -18,9 +18,7 @@ class StatisticCubit extends Cubit<StatisticState> {
     required StatisticState state,
     required SharedPreferences prefs,
   })  : _prefs = prefs,
-        super(state) {
-    refresh();
-  }
+        super(state);
 
   factory StatisticCubit({required SharedPreferences prefs}) {
     final stringedData = prefs.getString('data');

@@ -32,5 +32,9 @@
   "followTheInstructions": "Follow the instructions to do your own test",
   "oops": "Oops!",
   "noInternetConnection": "No internet connection. Please check your settings",
-  "reload": "RELOAD"
+  "reload": "RELOAD",
+  "next": "NEXT",
+  "go": "GO",
+  "washingHandsSanitizing": "Washing hands & Sanitizing",
+  "physicalDistancing": "Physical distancing"
 }

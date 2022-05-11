@@ -5,6 +5,7 @@ import 'bloc/statistic.dart';
 import 'pages/home/home_page.dart';
 import 'pages/loading.dart';
 import 'pages/no_connection.dart';
+import 'pages/onboarding.dart';
 
 class AppRouter {
   AppRouter._();
@@ -21,6 +22,9 @@ class AppRouter {
         break;
       case LoadingPage.routeName:
         page = const LoadingPage();
+        break;
+      case OnboardingPage.routeName:
+        page = const OnboardingPage();
         break;
       default:
         page = Center(

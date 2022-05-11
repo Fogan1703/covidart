@@ -7,6 +7,7 @@ import 'bloc/statistic.dart';
 import 'pages/home/home_page.dart';
 import 'pages/loading.dart';
 import 'pages/no_connection.dart';
+import 'pages/onboarding.dart';
 import 'router.dart';
 import 'theme.dart';
 
@@ -20,9 +21,12 @@ void main() async {
     prefs.setBool('seen', true);
   }
 
+  final statisticCubit = StatisticCubit(prefs: prefs);
+  if(seen) statisticCubit.refresh();
+
   runApp(
-    BlocProvider<StatisticCubit>(
-      create: (context) => StatisticCubit(prefs: prefs),
+    BlocProvider<StatisticCubit>.value(
+      value: statisticCubit,
       child: App(seen: seen),
     ),
   );
@@ -38,7 +42,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statisticState = context.read<StatisticCubit>().state;
+    final String initialRoute;
+
+    if (seen) {
+      final statisticState = context.read<StatisticCubit>().state;
+
+      if (statisticState is StatisticLoading) {
+        initialRoute = LoadingPage.routeName;
+      } else if (statisticState is StatisticNoConnection) {
+        initialRoute = NoConnectionPage.routeName;
+      } else {
+        initialRoute = HomePage.routeName;
+      }
+    } else {
+      initialRoute = OnboardingPage.routeName;
+    }
 
     return MaterialApp(
       title: 'Covidart',
@@ -47,11 +65,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: statisticState is StatisticLoading
-          ? LoadingPage.routeName
-          : statisticState is StatisticNoConnection
-              ? NoConnectionPage.routeName
-              : HomePage.routeName,
+      initialRoute: initialRoute,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }

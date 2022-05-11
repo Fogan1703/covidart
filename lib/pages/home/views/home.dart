@@ -93,19 +93,19 @@ class HomeView extends StatelessWidget {
                     children: [
                       _buildPreventionItem(
                         localizations.wearMask,
-                        const AssetImage('assets/images/use_mask.png'),
+                        const AssetImage('assets/images/home/use_mask.png'),
                         theme,
                         mediaQuery,
                       ),
                       _buildPreventionItem(
                         localizations.washHandsOften,
-                        const AssetImage('assets/images/wash_hands.png'),
+                        const AssetImage('assets/images/home/wash_hands.png'),
                         theme,
                         mediaQuery,
                       ),
                       _buildPreventionItem(
                         localizations.avoidCloseContact,
-                        const AssetImage('assets/images/close_contact.png'),
+                        const AssetImage('assets/images/home/close_contact.png'),
                         theme,
                         mediaQuery,
                       ),
@@ -190,7 +190,7 @@ class HomeView extends StatelessWidget {
                 bottom: 0,
                 top: -24,
                 width: contentWidth / 3 - 12,
-                child: Image.asset('assets/images/doctor.png'),
+                child: Image.asset('assets/images/home/doctor.png'),
               ),
               SizedBox(
                 width: contentWidth / 1.5,
