@@ -29,5 +29,8 @@
   "washHandsOften": "Wash your hands often",
   "avoidCloseContact": "Avoid close contact",
   "doYourOwnTest": "Do your own test!",
-  "followTheInstructions": "Follow the instructions to do your own test"
+  "followTheInstructions": "Follow the instructions to do your own test",
+  "oops": "Oops!",
+  "noInternetConnection": "No internet connection. Please check your settings",
+  "reload": "RELOAD"
 }
