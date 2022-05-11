@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/statistic.dart';
 import '../theme.dart';
@@ -131,16 +132,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: showGo
-                      ? context.read<StatisticCubit>().refresh
-                      : () {
-                          _pageController.nextPage(
-                            duration: const Duration(
-                              milliseconds: 300,
-                            ),
-                            curve: Curves.easeIn,
-                          );
-                        },
+                  onPressed: () async {
+                    if (showGo) {
+                      context.read<StatisticCubit>().refresh();
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setBool('seen', true);
+                    } else {
+                      _pageController.nextPage(
+                        duration: const Duration(
+                          milliseconds: 300,
+                        ),
+                        curve: Curves.easeIn,
+                      );
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: AppTheme.purpleDark,
                     fixedSize: Size(

@@ -17,9 +17,6 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
 
   final seen = prefs.getBool('seen') ?? false;
-  if (seen == false) {
-    prefs.setBool('seen', true);
-  }
 
   final statisticCubit = StatisticCubit(prefs: prefs);
   if(seen) statisticCubit.refresh();
